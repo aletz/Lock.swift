@@ -29,8 +29,7 @@ enum PasswordlessScreen {
 }
 
 public enum PasswordlessMethod: Int, Equatable {
-    case disabled = 0
-    case emailCode
+    case emailCode = 0
     case emailLink
     case smsCode
     case smsLink
@@ -41,8 +40,6 @@ public enum PasswordlessMethod: Int, Equatable {
             return "email"
         case .smsCode, .smsLink:
             return "sms"
-        case .disabled:
-            return "disabled"
         }
     }
 }

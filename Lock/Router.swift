@@ -58,7 +58,7 @@ struct Router: Navigable {
         }
         let whitelistForActiveAuth = self.lock.options.enterpriseConnectionUsingActiveAuth
 
-        if self.lock.options.passwordlessMethod != .disabled {
+        if !self.lock.classicMode {
             // Passwordlessfa
             if let connection = connections.passwordless.filter({ $0.name == self.lock.options.passwordlessMethod.mode }).first {
                 let passwordlessActivity = PasswordlessActivity.shared.withMessagePresenter(self.controller?.messagePresenter)

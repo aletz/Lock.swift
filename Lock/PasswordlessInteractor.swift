@@ -71,7 +71,7 @@ struct PasswordlessInteractor: PasswordlessAuthenticatable, Loggable {
             switch $0 {
             case .success:
                 callback(nil)
-                self.dispatcher.dispatch(result: .passwordless(identifier, self.options.passwordlessMethod))
+                self.dispatcher.dispatch(result: .passwordless(identifier))
 
                 if type == .iOSLink {
                     self.passwordlessActivity.onActivity { password, messagePresenter in

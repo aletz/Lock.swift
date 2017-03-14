@@ -42,14 +42,12 @@ class PasswordlessInteractorSpec: QuickSpec {
         var dispatchCredentials: Credentials?
         var dispatchError: Error?
         var dispatchPasswordlessEmail: String?
-        var dispatchPasswordlessType: PasswordlessMethod?
         let connection = "email"
 
         beforeEach {
             dispatchCredentials = nil
             dispatchError = nil
             dispatchPasswordlessEmail = nil
-            dispatchPasswordlessType = nil
             messagePresenter = MockMessagePresenter()
             options = LockOptions()
             options.passwordlessMethod = .emailCode
@@ -58,7 +56,7 @@ class PasswordlessInteractorSpec: QuickSpec {
             dispatcher = ObserverStore()
             dispatcher.onAuth = { dispatchCredentials = $0 }
             dispatcher.onFailure = { dispatchError = $0 }
-            dispatcher.onPasswordless = { dispatchPasswordlessEmail = $0; dispatchPasswordlessType = $1 }
+            dispatcher.onPasswordless = { dispatchPasswordlessEmail = $0 }
             interactor = PasswordlessInteractor(authentication: authentication, dispatcher: dispatcher, user: user, options: options, passwordlessActivity: passwordlessActivity)
         }
 
@@ -229,7 +227,6 @@ class PasswordlessInteractorSpec: QuickSpec {
                     }
                 }
                 expect(dispatchPasswordlessEmail).toEventuallyNot(beNil())
-                expect(dispatchPasswordlessType).toEventuallyNot(beNil())
             }
 
             describe("email link") {
